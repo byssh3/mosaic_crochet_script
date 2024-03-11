@@ -14,7 +14,7 @@ var refBkg = sheet.getRange(refRow,i).getBackground();
 var subBkg = sheet.getRange(subRow,i).getBackground();
 if (row % 2 == 0 && refBkg == targetBkg && subBkg == targetBkg && refBkg == '#dbc9f0') {
 sheet.getRange(targetRow,i).setValue("X");
-} //If you want to include a third color in this set, you can with: || refBkg == '#thirdcolor'
+}
 else if (row % 2 != 0 && refBkg == targetBkg && subBkg == targetBkg && refBkg == '#fdfbff'){
 sheet.getRange(targetRow,i).setValue("X");
 		}
