@@ -1,0 +1,33 @@
+function dcLoop () {
+  const spreadsheet = SpreadsheetApp.getActive()
+  const sheet = spreadsheet.getActiveSheet()
+  const rowStart = sheet.getActiveRange().getRow()
+  const numRows = 3
+  const columnStart = 1
+  const numColumns  = 55 //Manually defined by how many columns you have on your chart.
+  const range = sheet.getRange(rowStart, columnStart, numRows, numColumns)
+  const rows = range.getValues()
+  const colors = range.getBackgrounds()
+
+  for (let idx in colors[0]) {
+    if ((rowStart % 2 == 0) && (colors[0][idx] == '#e8e8e6') && (colors[0][idx] === colors[1][idx]) && (colors[0][idx] === colors[2][idx])) {
+      rows[0][idx] = 'X'
+    } //This 'if' statement is for whatever color the EVEN row of the spreadsheet is, which may not be your even row on your chart.
+    else if ((rowStart % 2 != 0) && (colors[0][idx] == '#8c74b2') && (colors[0][idx] === colors[1][idx]) && (colors[0][idx] === colors[2][idx])) {
+      rows[0][idx] = 'X'
+    } //This one is for the ODD rows of the same nature.
+  }
+  range.setValues(rows)
+} 
+
+function looper(){
+  const spreadsheet = SpreadsheetApp.getActive()
+  const sheet = spreadsheet.getActiveSheet()
+  var numberOfRows = 148; //Manually defined; soft limit at around 200?
+  let current = sheet.getCurrentCell();
+  
+  for (var j = 1; j <= numberOfRows; j++){
+  dcLoop();
+  current.offset(-j,0).activateAsCurrentCell();
+  }
+}
