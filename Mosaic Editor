@@ -1,0 +1,47 @@
+// The following is totally optional, but useful to make on the fly edits.
+function onEdit(e) {
+  var range = e.range;
+  var bgColor = range.getBackground();
+  var spreadSheet = e.source;
+  var sheetName = spreadSheet.getActiveSheet().getName();
+  var column = range.getColumn();
+  var row = range.getRow();
+  var inputValue = e.value;
+
+  // This one is for the EVEN rows. Change all three places with #
+  if([inputValue] == 'X' && row % 2 == 0)
+  {
+  SpreadsheetApp.getActiveSpreadsheet().getCurrentCell().setBackground('#fdfbff');
+  SpreadsheetApp.getActiveSpreadsheet().getCurrentCell().offset(1,0).setBackground('#fdfbff').clearContent();
+  SpreadsheetApp.getActiveSpreadsheet().getCurrentCell().offset(2,0).setBackground('#fdfbff');
+  }
+  // This one is for your "third" color if you have one.
+  else if([inputValue] == 'X' && bgColor == '#fdb130')
+  {
+  SpreadsheetApp.getActiveSpreadsheet().getCurrentCell().setBackground('#fdb130');
+  SpreadsheetApp.getActiveSpreadsheet().getCurrentCell().offset(1,0).setBackground('#fdb130').clearContent();
+  SpreadsheetApp.getActiveSpreadsheet().getCurrentCell().offset(2,0).setBackground('#fdb130');
+  }
+  // This one is for ODD rows. Change all three places with #
+  else if([inputValue] == 'X')
+  {
+  SpreadsheetApp.getActiveSpreadsheet().getCurrentCell().setBackground('#dbc9f0');
+  SpreadsheetApp.getActiveSpreadsheet().getCurrentCell().offset(1,0).setBackground('#dbc9f0').clearContent();
+  SpreadsheetApp.getActiveSpreadsheet().getCurrentCell().offset(2,0).setBackground('#dbc9f0');
+  }
+  // This one is superfluous, but if using a key like the comma is closer than the backspace, whatever.
+  else if([inputValue] == '/')
+  {
+  SpreadsheetApp.getActiveSpreadsheet().getCurrentCell().clearContent();
+  }
+  // This one and the one after are mirrors of each other. If you use it on an even row, it changes the cell to the odd row color, and vice verse. Just change the # in all four lines.
+  else if([inputValue] == '.' && bgColor == '#dbc9f0')
+  {
+  SpreadsheetApp.getActiveSpreadsheet().getCurrentCell().setBackground('#fdfbff').clearContent();
+  }
+
+  else if([inputValue] == '.' && bgColor == '#fdfbff')
+  {
+  SpreadsheetApp.getActiveSpreadsheet().getCurrentCell().setBackground('#dbc9f0').clearContent();
+  }
+}
